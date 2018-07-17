@@ -19,4 +19,9 @@ RUN rm -rf /tmp/*
 
 ENV PATH $PATH:/opt/protoc/bin
 
-WORKDIR /root
+WORKDIR /usr/src/app
+
+ENTRYPOINT protoc -I. \
+    --plugin=protoc-gen-grpc \
+    --go_out=plugins=grpc,paths=source_relative:. \
+    ${PROTO_FILES}
